@@ -1,0 +1,64 @@
+-- 1. Create EMP table
+
+CREATE TABLE EMP (
+    EMPNO NUMBER,
+    ENAME VARCHAR2(50),
+    JOB VARCHAR2(50),
+    MGR NUMBER,
+    HIREDATE DATE,
+    SAL NUMBER,
+    COMM NUMBER,
+    DEPTNO NUMBER
+);
+
+
+-- 2. Insert employee records
+
+INSERT INTO EMP VALUES
+(101, 'GAUTAM', 'MANAGER',  NULL, TO_DATE('10-01-2024','DD-MM-YYYY'), 50000, 5000, 10);
+
+INSERT INTO EMP VALUES
+(102, 'RAHUL', 'CLERK', 101, TO_DATE('15-02-2024','DD-MM-YYYY'), 30000, 2000, 20);
+
+INSERT INTO EMP VALUES
+(103, 'AMIT', 'SALESMAN', 101, TO_DATE('20-03-2024','DD-MM-YYYY'), 35000, 3000, 30);
+
+INSERT INTO EMP VALUES
+(104, 'ROHIT', 'ANALYST', 101, TO_DATE('25-04-2024','DD-MM-YYYY'), 45000, 4000, 10);
+
+COMMIT;
+
+
+-- 3. Check EMP table
+
+SELECT * FROM EMP;
+
+
+-- 4. PL/SQL Program
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    e_name EMP.ENAME%TYPE := '&e_name';
+    salary EMP.SAL%TYPE;
+
+BEGIN
+
+    SELECT SAL
+    INTO salary
+    FROM EMP
+    WHERE UPPER(ENAME) = UPPER(e_name);
+
+    DBMS_OUTPUT.PUT_LINE('Employee Name : ' || e_name);
+    DBMS_OUTPUT.PUT_LINE('Basic Salary  : ' || salary);
+
+EXCEPTION
+
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Employee not found.');
+
+    WHEN TOO_MANY_ROWS THEN
+        DBMS_OUTPUT.PUT_LINE('Multiple employees found with this name.');
+
+END;
+/
