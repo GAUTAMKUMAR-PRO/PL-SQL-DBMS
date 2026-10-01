@@ -1,0 +1,27 @@
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE FUNCTION SQUARE_NUMBER (
+    p_num IN NUMBER
+)
+RETURN NUMBER
+IS
+BEGIN
+    RETURN p_num * p_num;
+END;
+/
+
+-
+
+DECLARE
+    v_result NUMBER;
+BEGIN
+    v_result := SQUARE_NUMBER(5);
+
+    DBMS_OUTPUT.PUT_LINE('Square = ' || v_result);
+END;
+/
+
+
+
+SELECT SQUARE_NUMBER(5) AS SQUARE
+FROM DUAL;
